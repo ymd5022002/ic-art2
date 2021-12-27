@@ -1,14 +1,17 @@
-window.addEventListener( "load", loadFunc, false );
- 
-function loadFunc() {
- 
-    var canvas = document.getElementById( "stage" );
-    var ctx = canvas.getContext( "2d" );
-     
+
+var can = document.getElementById("canvas");
+var ctx = can.getContext("2d");
+
+var count = 0;//アニメーションカウンター
+  var timer = setInterval(function(){
+    ctx.fillStyle="#000000";//消去時の色
+    ctx.clearRect(0,0,256,256);//消す
+    //ctx.fillStyle="#f00";//塗りつぶし色を赤に
+    //ctx.fillRect(30,30+count,30,30);
+
     //ここからプログラムを記述
-    var windowSize = 480;
+    var windowSize = 128;
     //var flameNumber = 24;
-    var phase = 0;  //0-99
     var x = 0;
     var y = 0;
     var pixelWidth = 1;
@@ -17,19 +20,26 @@ function loadFunc() {
     toneNumber = colorCode.length
 
     for ( var j = 0; j < 10 ; j += 10/windowSize){
-        for( var i = 0; i < windowSize ; i++ ) {
-            ctx.fillStyle = colorCode[ Math.floor( i * j * 10 + toneNumber　*　phase /100 ) % toneNumber ]; 
+        for( var i = 0; i < windowSize; i++ ) {
+            ctx.fillStyle = colorCode[ Math.floor( i*j*10 + toneNumber*count/100 ) % toneNumber ]; 
             ctx.fillRect(x, y, pixelWidth, pixelHeight );
             ctx.fillRect(2*windowSize-1-x, y, pixelWidth, pixelHeight );
             ctx.fillRect(x, 2*windowSize-1-y, pixelWidth, pixelHeight );
-            ctx.fillRect(2*windowSize-1-x, 2*windowSize-1-y, pixelWidth, pixelHeight );         
-         x += pixelWidth;  
+            ctx.fillRect(2*windowSize-1-x, 2*windowSize-1-y, pixelWidth, pixelHeight );
+            x += pixelWidth;  
         }
         x = 0;
         y += pixelHeight;
     }        
+  //ここまでにプログラムを記述    
+    
+    count += 75;
+    if(True){
+      clearInterval(timer);
+    }
+  },100);
 
-    function colorCodeRead(){ //4800階調干渉色の色コード
+function colorCodeRead(){ //480階調干渉色の色コード
         var colorCode =[
                 "#F2FEFB",
                 "#F2FEFB",
@@ -4833,6 +4843,3 @@ function loadFunc() {
                 "#CFD1CF"]
         return colorCode;
     }
-  //ここまでにプログラムを記述
- 
-}
