@@ -33,7 +33,7 @@ var count = 0;//アニメーションカウンター
   //ここまでにプログラムを記述    
     
     count += 75;
-    if(True){
+    if(count<10000){
       clearInterval(timer);
     }
   },100);
